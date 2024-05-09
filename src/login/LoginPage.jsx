@@ -5,37 +5,36 @@ import { getConfig } from '@edx/frontend-platform';
 import { sendPageEvent, sendTrackEvent } from '@edx/frontend-platform/analytics';
 import { injectIntl } from '@edx/frontend-platform/i18n';
 import {
-  Form, Hyperlink, Icon, StatefulButton,
+    Form, Hyperlink, Icon
 } from '@edx/paragon';
 import { Institution } from '@edx/paragon/icons';
 import PropTypes from 'prop-types';
 import { Helmet } from 'react-helmet';
 import Skeleton from 'react-loading-skeleton';
-import { Link } from 'react-router-dom';
 
 import {
-  FormGroup, InstitutionLogistration, PasswordField, RedirectLogistration,
-  RenderInstitutionButton, SocialAuthProviders, ThirdPartyAuthAlert,
+    InstitutionLogistration,
+    RedirectLogistration,
+    RenderInstitutionButton, SocialAuthProviders, ThirdPartyAuthAlert
 } from '../common-components';
 import { getThirdPartyAuthContext } from '../common-components/data/actions';
 import { thirdPartyAuthContextSelector } from '../common-components/data/selectors';
 import EnterpriseSSO from '../common-components/EnterpriseSSO';
 import {
-  DEFAULT_STATE, ENTERPRISE_LOGIN_URL, PENDING_STATE, RESET_PAGE,
+    DEFAULT_STATE, ENTERPRISE_LOGIN_URL, PENDING_STATE
 } from '../data/constants';
 import {
-  getActivationStatus,
-  getAllPossibleQueryParams,
-  getTpaHint,
-  getTpaProvider,
-  setSurveyCookie,
-  updatePathWithQueryParams,
-  windowScrollTo,
+    getActivationStatus,
+    getAllPossibleQueryParams,
+    getTpaHint,
+    getTpaProvider,
+    setSurveyCookie,
+    windowScrollTo
 } from '../data/utils';
 import ResetPasswordSuccess from '../reset-password/ResetPasswordSuccess';
 import AccountActivationMessage from './AccountActivationMessage';
 import {
-  loginRemovePasswordResetBanner, loginRequest, loginRequestFailure, loginRequestReset, setLoginFormData,
+    loginRemovePasswordResetBanner, loginRequest, loginRequestFailure, loginRequestReset, setLoginFormData,
 } from './data/actions';
 import { INVALID_FORM, TPA_AUTHENTICATION_FAILURE } from './data/constants';
 import { loginErrorSelector, loginFormDataSelector, loginRequestSelector } from './data/selectors';
@@ -170,13 +169,6 @@ class LoginPage extends React.Component {
 
     return (
       <>
-        {(isSocialAuthActive || (isEnterpriseLoginDisabled && isInstitutionAuthActive))
-          && (
-            <div className="mt-4 mb-3 h4">
-              {intl.formatMessage(messages['login.other.options.heading'])}
-            </div>
-          )}
-
         {(!isEnterpriseLoginDisabled && isSocialAuthActive) && (
           <Hyperlink className="btn btn-link btn-sm text-body p-0 mb-4" destination={this.getEnterPriseLoginURL()}>
             <Icon src={Institution} className="institute-icon" />
@@ -264,7 +256,7 @@ class LoginPage extends React.Component {
           {activationMsgType && <AccountActivationMessage messageType={activationMsgType} />}
           {this.props.resetPassword && !this.props.loginError ? <ResetPasswordSuccess /> : null}
           <Form name="sign-in-form" id="sign-in-form">
-            <FormGroup
+            {/* <FormGroup
               name="emailOrUsername"
               value={this.state.emailOrUsername}
               autoComplete="on"
@@ -307,7 +299,7 @@ class LoginPage extends React.Component {
               onClick={this.handleForgotPasswordLinkClickEvent}
             >
               {intl.formatMessage(messages['forgot.password'])}
-            </Link>
+            </Link> */}
             {this.renderThirdPartyAuth(providers, secondaryProviders, currentProvider, thirdPartyAuthApiStatus, intl)}
           </Form>
         </div>
